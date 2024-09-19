@@ -1,113 +1,155 @@
-import Image from "next/image";
+// pages/index.tsx
+"use client";
+import { useState } from "react";
+import { FaFire, FaList, FaQuestionCircle, FaSmile } from "react-icons/fa";
 
-export default function Home() {
+const InfoDisplay = ({ champion }: any) => {
+  if (!champion) return null; // Não exibe se não houver campeão
+
+  // Simulando dados de exemplo baseados no campeão
+  const data = {
+    genero: "Homem",
+    posicao: "Topo",
+    especie: "Yordle",
+    recurso: "Mana",
+    alcance: "Longo Alcance",
+    regiao: "Bandópolis",
+    ano: "2009",
+  };
+
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">app/page.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:size-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+    <div className="relative mt-8 z-10 flex justify-center flex-col items-center">
+      <table className="table-auto border-separate border-spacing-2 text-white">
+        <thead>
+          <tr className="text-center">
+            <th className="border-b-2 border-white">Campeão</th>
+            <th className="border-b-2 border-white">Gênero</th>
+            <th className="border-b-2 border-white">Posição(ões)</th>
+            <th className="border-b-2 border-white">Espécie</th>
+            <th className="border-b-2 border-white">Recurso</th>
+            <th className="border-b-2 border-white">Tipo de alcance</th>
+            <th className="border-b-2 border-white">Região(ões)</th>
+            <th className="border-b-2 border-white">Ano de lançamento</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr className="text-center">
+            <td className=" w-24 h-24">
+              {" "}
+              <img
+                src="https://media.tenor.com/Y7wZjkZx1ksAAAAj/monkey-thinking-meme-monkey-thinking-sticker.gif"
+                alt="Champion"
+                className="w-24 h-24"
+              />
+            </td>
+            {Object.values(data).map((value: any, index: number) => (
+              <td
+                key={index}
+                className={`${
+                  value === Object.values(data)[index]
+                    ? "bg-green-500"
+                    : "bg-red-500"
+                } w-24 h-24`}
+              >
+                {value}
+              </td>
+            ))}
+            {/* <td className="bg-green-500 w-24 h-24">Homem</td>
+            <td className="bg-green-500 w-24 h-24">Topo</td>
+            <td className="bg-green-500 w-24 h-24">Yordle</td>
+            <td className="bg-green-500 w-24 h-24">Mana</td>
+            <td className="bg-green-500 w-24 h-24">Longo Alcance</td>
+            <td className="bg-green-500 w-24 h-24">Bandópolis</td>
+            <td className="bg-green-500 w-24 h-24">2009</td> */}
+          </tr>
+        </tbody>
+      </table>
+
+      <div className="mt-4 bg-black bg-opacity-70 p-4 rounded-lg border border-white shadow-md">
+        <p className="text-yellow-400 text-lg">Indicadores de cor</p>
+        <div className="grid grid-cols-3 gap-4 mt-2">
+          <div className="flex items-center space-x-2">
+            <div className="bg-green-500 w-6 h-6"></div> <span>Correto</span>
+          </div>
+          <div className="flex items-center space-x-2">
+            <div className="bg-yellow-500 w-6 h-6"></div> <span>Parcial</span>
+          </div>
+          <div className="flex items-center space-x-2">
+            <div className="bg-red-500 w-6 h-6"></div> <span>Incorreto</span>
+          </div>
+          <div className="flex items-center space-x-2">
+            <div className="bg-red-500 w-6 h-6"></div> <span>Mais alto</span>
+          </div>
+          <div className="flex items-center space-x-2">
+            <div className="bg-red-500 w-6 h-6"></div> <span>Mais baixo</span>
+          </div>
         </div>
       </div>
-
-      <div className="relative z-[-1] flex place-items-center before:absolute before:h-[300px] before:w-full before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-full after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 sm:before:w-[480px] sm:after:w-[240px] before:lg:h-[360px]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className="mb-32 grid text-center lg:mb-0 lg:w-full lg:max-w-5xl lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Docs{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Learn{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Templates{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Explore starter templates for Next.js.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Deploy{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-balance text-sm opacity-50">
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+    </div>
   );
-}
+};
+
+const HomePage = () => {
+  const [championName, setChampionName] = useState<any>("");
+  const [championData, setChampionData] = useState(null);
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setChampionName(e.target.value);
+  };
+  const handleSubmit = () => {
+    setChampionData(championName);
+  };
+
+  return (
+    <div
+      className="min-h-screen bg-cover bg-center text-white"
+      style={{
+        backgroundImage:
+          "url('https://www.dailynews.co.th/wp-content/uploads/2024/06/tft_cover.jpg')",
+      }}
+    >
+      <div className="absolute inset-0 bg-black opacity-60 z-0"></div>
+      <header className="relative z-10 flex justify-between items-center p-4">
+        <div className="text-4xl font-bold">TftDle</div>
+      </header>
+
+      <main className="relative z-10 flex flex-col items-center justify-center mt-16">
+        <div className="flex space-x-4 text-3xl">
+          <FaQuestionCircle />
+          <FaFire />
+          <FaSmile />
+          <FaList />
+        </div>
+
+        <div className="mt-8 z-10">
+          <p className="text-xl text-center">
+            Adivinhe o campeão de Team Fight Tactics de hoje!
+          </p>
+          <input
+            type="text"
+            value={championName}
+            onChange={handleInputChange}
+            placeholder="Digite o nome do campeão..."
+            className="w-[480px] p-2 mt-4 text-black rounded-md"
+          />
+        </div>
+
+        <button
+          className="mt-4 p-2 bg-yellow-500 rounded-md text-black"
+          onClick={handleSubmit}
+        >
+          Verificar Campeão
+        </button>
+      </main>
+      {championData && <InfoDisplay champion={championData} />}
+      <footer className="relative z-10 flex justify-center mt-16">
+        <p>
+          O campeão de ontem foi{" "}
+          <span className="text-green-500">Shyvanna</span>
+        </p>
+      </footer>
+    </div>
+  );
+};
+
+export default HomePage;
